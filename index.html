@@ -1647,7 +1647,7 @@
                 </div>
                 <div class="contact-form">
                     <h3>Send Us a Message</h3>
-                    <form onsubmit="handleSubmit(event)">
+                    <form id="contactForm" >
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Your Name</label>
@@ -1817,17 +1817,17 @@
     <!-- Supabase Library -->
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-        <!-- Supabase Form Script -->
         <script>
-
         const supabaseClient = supabase.createClient(
         "https://kflxbqsuqehozrrxpcma.supabase.co",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmbHhicXN1cWVob3pycnhwY21hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMDIwNTksImV4cCI6MjA4ODY3ODA1OX0.Iww4rEHj_oZPwjDbB1g9Xkd10h0SVlWZbsxOkiq2euQ"
+        "YOUR_ANON_KEY"
         )
 
         document.getElementById("contactForm").addEventListener("submit", async function(e){
 
         e.preventDefault()
+
+        const btn = document.querySelector(".btn-submit")
 
         const name = document.getElementById("name").value
         const email = document.getElementById("email").value
@@ -1835,21 +1835,20 @@
         const service = document.getElementById("service").value
         const message = document.getElementById("message").value
 
-        const { data, error } = await supabaseClient
+        btn.innerHTML = "Sending..."
+
+        const { error } = await supabaseClient
         .from("Contact")
-        .insert([
-        { name, email, phone, service, message }
-        ])
+        .insert([{ name, email, phone, service, message }])
 
         if(error){
         alert("Error submitting form")
+        btn.innerHTML = "Send Message"
         }else{
-        alert("Message sent successfully!")
+        btn.innerHTML = "Message Sent!"
         document.getElementById("contactForm").reset()
         }
-
         })
-
-</script>
+        </script>
 </body>
 </html>
