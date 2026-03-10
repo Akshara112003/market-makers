@@ -1791,17 +1791,17 @@
         }
 
         // Form submit handler
-        function handleSubmit(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('.btn-submit');
-            btn.innerHTML = '<i class="fas fa-check"></i> &nbsp;Message Sent!';
-            btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> &nbsp;Send Message';
-                btn.style.background = '';
-                e.target.reset();
-            }, 3000);
-        }
+        // function handleSubmit(e) {
+        //     e.preventDefault();
+        //     const btn = e.target.querySelector('.btn-submit');
+        //     btn.innerHTML = '<i class="fas fa-check"></i> &nbsp;Message Sent!';
+        //     btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+        //     setTimeout(() => {
+        //         btn.innerHTML = '<i class="fas fa-paper-plane"></i> &nbsp;Send Message';
+        //         btn.style.background = '';
+        //         e.target.reset();
+        //     }, 3000);
+        // }
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1815,40 +1815,45 @@
         });
     </script>
     <!-- Supabase Library -->
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> 
 
-        <script>
-        const supabaseClient = supabase.createClient(
-        "https://kflxbqsuqehozrrxpcma.supabase.co",
-        "YOUR_ANON_KEY"
-        )
+    <script>
 
-        document.getElementById("contactForm").addEventListener("submit", async function(e){
+    const supabaseClient = supabase.createClient(
+    "https://kflxbqsuqehozrrxpcma.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmbHhicXN1cWVob3pycnhwY21hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMDIwNTksImV4cCI6MjA4ODY3ODA1OX0.Iww4rEHj_oZPwjDbB1g9Xkd10h0SVlWZbsxOkiq2euQ"
+    )
 
-        e.preventDefault()
+    document.getElementById("contactForm").addEventListener("submit", async function(e){
 
-        const btn = document.querySelector(".btn-submit")
+    e.preventDefault()
 
-        const name = document.getElementById("name").value
-        const email = document.getElementById("email").value
-        const phone = document.getElementById("phone").value
-        const service = document.getElementById("service").value
-        const message = document.getElementById("message").value
+    const btn = document.querySelector(".btn-submit")
 
-        btn.innerHTML = "Sending..."
+    const name = document.getElementById("name").value
+    const email = document.getElementById("email").value
+    const phone = document.getElementById("phone").value
+    const service = document.getElementById("service").value
+    const message = document.getElementById("message").value
 
-        const { error } = await supabaseClient
-        .from("Contact")
-        .insert([{ name, email, phone, service, message }])
+    btn.innerHTML = "Sending..."
 
-        if(error){
-        alert("Error submitting form")
-        btn.innerHTML = "Send Message"
-        }else{
-        btn.innerHTML = "Message Sent!"
-        document.getElementById("contactForm").reset()
-        }
-        })
-        </script>
+    const { error } = await supabaseClient
+    .from("Contact")
+    .insert([{ name, email, phone, service, message }])
+
+    if(error){
+    console.error(error)
+    alert("Error submitting form")
+    btn.innerHTML = "Send Message"
+    }else{
+    btn.innerHTML = "Message Sent!"
+    document.getElementById("contactForm").reset()
+    }
+
+    })
+
+    </script>
 </body>
 </html>
